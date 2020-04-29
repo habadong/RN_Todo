@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, TextInput, Dimensions } from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, TextInput, Dimensions, Platform } from 'react-native';
 
 const { height, width } = Dimensions.get("window");
 
@@ -37,7 +37,22 @@ const styles = StyleSheet.create({
     flex : 1,
     width : width - 25,
     borderTopLeftRadius : 10,
-    borderTopRightRadius : 10
+    borderTopRightRadius : 10,
+    elevation : 5,
+    ...Platform.select({
+      ios : {
+        shadowColor : 'rgba(50,50,50)',
+        shadowOpacity : 0.5,
+        shadowRadius : 5,
+        shadowOffset:{
+          height:-1,
+          width : 0
+        }
+      },
+      android : {
+        elevation : 3
+      }
+    })
   }
 });
 
