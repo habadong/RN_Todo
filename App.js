@@ -4,16 +4,34 @@ import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, TextInput,
 const { height, width } = Dimensions.get("window");
 
 class App extends React.Component {
+  state = {
+    newToDo : "",
+  };
+  _contollNewToDo = (text) => {
+    this.setState({
+      newToDo : text
+    });
+  }
+
   render() {
+    const { newToDo } = this.state;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content"/>
         <Text style={styles.title}>RN-To do</Text>
         <View style={styles.card}>
-          <TextInput style={styles.input} placeholder={"New To Do"} />
+          <TextInput
+            style={styles.input}
+            placeholder={"New To Do"}
+            value={newToDo}
+            onChangeText={this._contollNewToDo}
+            placeholderTextColor={'#999'}
+            returnKeyType={"done"}
+            autoCorrect={false}
+          />
         </View>
       </View>
-    )
+    );
   }
 }
 
@@ -53,6 +71,12 @@ const styles = StyleSheet.create({
         elevation : 3
       }
     })
+  },
+  input : {
+    padding : 20,
+    borderBottomColor : '#bbb',
+    borderBottomWidth : 1,
+    fontSize : 25,
   }
 });
 
