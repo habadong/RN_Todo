@@ -32,7 +32,7 @@ class App extends React.Component {
             autoCorrect={false}
           />
           <ScrollView contentContainerStyle={styles.toDos}>
-            <Todo />
+            <Todo text={"Hello I'm a To Do"} />
           </ScrollView>
         </View>
       </View>
