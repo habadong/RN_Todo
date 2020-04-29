@@ -22,15 +22,22 @@ class ToDo extends Component {
       const { isCompleted } = this.state;
     return (
       <View style={styles.container}>
-          <TouchableOpacity onPress={this._toggleComplete}>
+        <TouchableOpacity onPress={this._toggleComplete}>
             <View
                 style={[
                     styles.circle, 
                     isCompleted ? styles.completedCircle : styles.uncompletedCircle
                 ]}
             />
-          </TouchableOpacity>
-        <Text style={styles.text}> Hello I'm ToDo </Text>
+        </TouchableOpacity>
+        <Text
+            style={[
+                styles.text, 
+                isCompleted ? styles.completedText : styles.uncompletedText
+            ]}
+        >
+            Hello I'm ToDo
+        </Text>
       </View>
     );
   }
@@ -57,6 +64,13 @@ const styles = StyleSheet.create({
     },
     uncompletedCircle : {
         borderColor : '#2E9AFE'
+    },
+    completedText : {
+        color : '#bbb',
+        textDecorationLine : 'line-through',
+    },
+    uncompletedText : {
+        color : '#353535'
     },
     text : {
         fontWeight : '600',
