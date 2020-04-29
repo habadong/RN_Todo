@@ -7,13 +7,28 @@ const { width , height } = Dimensions.get('window');
 class ToDo extends Component {
   state = {
       isEditing : false,
+      isCompleted : false,
   };
 
+  _toggleComplete = () => {
+      this.setState(
+          prevState => {    //get previous state 그리고 완성의 반대를 이전 state에 주는거임 // 고급져 보이는 방법
+              return {
+                  isCompleted : !prevState.isCompleted
+              };
+          });
+  };
   render() {
+      const { isCompleted } = this.state;
     return (
       <View style={styles.container}>
-          <TouchableOpacity>
-              <View style={styles.circle}></View>
+          <TouchableOpacity onPress={this._toggleComplete}>
+            <View
+                style={[
+                    styles.circle, 
+                    isCompleted ? styles.completedCircle : styles.uncompletedCircle
+                ]}
+            />
           </TouchableOpacity>
         <Text style={styles.text}> Hello I'm ToDo </Text>
       </View>
@@ -23,7 +38,7 @@ class ToDo extends Component {
 
 const styles = StyleSheet.create({
     container : {
-        width : width -50,
+        width : width - 50,
         borderBottomColor : '#bbb',
         borderBottomWidth : StyleSheet.hairlineWidth,
         flexDirection : 'row',
@@ -36,6 +51,12 @@ const styles = StyleSheet.create({
         borderColor : 'blue',
         borderWidth : 3,
         marginRight : 20,
+    },
+    completedCircle : {
+        borderColor : '#bbb'
+    },
+    uncompletedCircle : {
+        borderColor : '#2E9AFE'
     },
     text : {
         fontWeight : '600',
