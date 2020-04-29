@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, TextInput, Dimensions, Platform } from 'react-native';
+import Todo from './ToDo';
 
 const { height, width } = Dimensions.get("window");
 
@@ -7,6 +8,7 @@ class App extends React.Component {
   state = {
     newToDo : "",
   };
+
   _contollNewToDo = (text) => {
     this.setState({
       newToDo : text
@@ -29,6 +31,9 @@ class App extends React.Component {
             returnKeyType={"done"}
             autoCorrect={false}
           />
+          <ScrollView>
+            <Todo />
+          </ScrollView>
         </View>
       </View>
     );
