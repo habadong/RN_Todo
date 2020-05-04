@@ -1,22 +1,50 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, TextInput, Dimensions, Platform } from 'react-native';
-import Todo from './ToDo';
-
+import ToDo from './ToDo';
+import uuid from 'uuid';
 const { height, width } = Dimensions.get("window");
 
 class App extends React.Component {
   state = {
     newToDo : "",
+    loadedToDos : false,
+    toDos : {}
   };
 
-  _contollNewToDo = (text) => {
+  _controllNewToDo = (text) => {
     this.setState({
-      newToDo : text
+      newToDo : text,
     });
+  }
+  _addToDo = () => {
+    const { newToDo } = this.state;
+    if(newToDo !== ""){
+      this.setState(prevState => {
+        const ID = uuid();
+        const newToDoObject = {
+          [ID] : {
+            id : ID,
+            isCompleted : false,
+            text : newToDo,
+            createdAt : Date.now()
+          }
+        };
+        const newState = {
+          ...prevState,
+          newToDo : "",
+          toDos : {
+            ...prevState.toDos,
+            ...newToDoObject
+          }
+        };
+        return { ...newState };
+      })
+    }
   }
 
   render() {
-    const { newToDo } = this.state;
+    const { newToDo, loadedToDos, toDos } = this.state;
+    console.log(toDos);
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content"/>
@@ -26,13 +54,14 @@ class App extends React.Component {
             style={styles.input}
             placeholder={"New To Do"}
             value={newToDo}
-            onChangeText={this._contollNewToDo}
+            onChangeText={this._controllNewToDo}
             placeholderTextColor={'#999'}
             returnKeyType={"done"}
             autoCorrect={false}
+            onSubmitEditing={this._addToDo}
           />
           <ScrollView contentContainerStyle={styles.toDos}>
-            <Todo text={"Hello I'm a To Do"} />
+            {Object.values(toDos).map(toDo => <ToDo Key={toDo.id} {...toDo} />)}
           </ScrollView>
         </View>
       </View>
