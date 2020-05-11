@@ -1,46 +1,46 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, TextInput } from 'react-native';
-
+import PropTypes from 'prop-types';
 
 const { width , height } = Dimensions.get('window');
 
 class ToDo extends Component {
-  state = {
-      isEditing : false,
-      isCompleted : false,
-      toDoValue : '',
-  };
-
-  _toggleComplete = () => {
-      this.setState(
-          prevState => {    //get previous state 그리고 완성의 반대를 이전 state에 주는거임 // 고급져 보이는 방법
-              return {
-                  isCompleted : !prevState.isCompleted
-              };
-          });
-  };
-  _startEditing = () => {
-      const { text } = this.props;
-      this.setState({
-          isEditing : true,
-          toDoValue : text
-      });
-  };
-  _finishEditing = () => {
-      this.setState({
-          isEditing : false
-      })
-  };
-  _controllInput = (text) => {
-      this.setState({
-          toDoValue : text
-      })
-  }
-  render() {
-      const { isEditing, isCompleted, toDoValue } = this.state;
-      const { text } = this.props;
+    
+    state = {
+        isEditing : false,
+        isCompleted : false,
+        toDoValue : '',
+    };
+    _toggleComplete = () => {
+        this.setState(
+            prevState => {    //get previous state 그리고 완성의 반대를 이전 state에 주는거임 // 고급져 보이는 방법
+                return {
+                    isCompleted : !prevState.isCompleted
+                };
+            });
+    };
+    _startEditing = () => {
+        const { text } = this.props;
+        this.setState({
+            isEditing : true,
+            toDoValue : text
+        });
+    };
+    _finishEditing = () => {
+        this.setState({
+            isEditing : false
+        })
+    };
+    _controllInput = (text) => {
+        this.setState({
+            toDoValue : text
+        })
+    }
+    render() {
+        const { isEditing, isCompleted, toDoValue } = this.state;
+        const { text } = this.props;
     return (
-      <View style={styles.container}>
+        <View style={styles.container}>
         <View style={styles.column}>
             <TouchableOpacity onPress={this._toggleComplete}>
                 <View
@@ -96,9 +96,9 @@ class ToDo extends Component {
                 </TouchableOpacity>
                 </View>
             )}
-      </View>
+        </View>
     );
-  }
+    }
 }
 
 const styles = StyleSheet.create({
