@@ -9,9 +9,12 @@ import {
   TextInput,
   Dimensions,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import ToDo from './ToDo';
 import uuid from 'uuid';
+import i18n from './src/i18n/i18n';
+
 const {height, width} = Dimensions.get('window');
 
 class App extends React.Component {
@@ -52,13 +55,21 @@ class App extends React.Component {
     }
   };
 
+  changeLanguage = (language, component) => {
+    i18n.locale = language;
+    component.forceUpdate();
+  };
+
   render() {
     const {newToDo, loadedToDos, toDos} = this.state;
     console.log(toDos);
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Text style={styles.title}>RN-To do</Text>
+        <Text style={styles.title}>{i18n.t('Title')}</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.changeLanguage('ko', this)}></TouchableOpacity>
         <View style={styles.card}>
           <TextInput
             style={styles.input}
@@ -82,6 +93,12 @@ class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    width: 25,
+    height: 25,
+    borderRadius: 10,
+    backgroundColor: 'black',
+  },
   container: {
     flex: 1,
     backgroundColor: '#2E9AFE',
